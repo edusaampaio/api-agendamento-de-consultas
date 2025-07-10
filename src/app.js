@@ -17,8 +17,11 @@ app.get('/', (req, res)=>{
     res.send('bem vindo ao meu server!')
 })
 
+const db: 'PORT=3050MONGO_URI=mongodb:/127.0.0.1:27017/apiusers'
 
 app.listen(PORT, ()=>{
     console.log(`servidor rodando na porta ${PORT}`);
     
 })
+
+
