@@ -14,10 +14,6 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log('Conectado ao MongoDB!'))
   .catch((err) => console.error('Erro ao conectar:', err));
 
-app.get('/', (req, res)=>{
-    res.send('bem vindo ao meu server!')
-})
-
 app.listen(PORT, ()=>{
     console.log(`servidor rodando na porta ${PORT}`);
     
