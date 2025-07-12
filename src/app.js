@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose');
+const User = require("../models/users")
 const dotenv = require('dotenv').config()
 const PORT = process.env.PORT
 const MONGO_URI = process.env.MONGO_URI;
@@ -16,8 +17,6 @@ mongoose.connect(MONGO_URI)
 app.get('/', (req, res)=>{
     res.send('bem vindo ao meu server!')
 })
-
-const db: 'PORT=3050MONGO_URI=mongodb:/127.0.0.1:27017/apiusers'
 
 app.listen(PORT, ()=>{
     console.log(`servidor rodando na porta ${PORT}`);
