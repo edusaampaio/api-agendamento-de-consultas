@@ -1,8 +1,12 @@
 const User = require('../../models/Users/users');
+const bcrypt = require('bcryptjs');
+const salt = bcrypt.genSaltSync(10);
+const hash = bcrypt.hashSync("B4c0/\/", salt);
 exports.cadastroUsuario = async (req, res) => {
     try {
-        const { nome, sobrenome, email } = req.body;
-        const novoUsuario = new User({ nome, sobrenome, email });
+        const { nome, sobrenome, email, senha } = req.body;
+        const senhaHash = await bcrypt.hash(senha, 10);
+        const novoUsuario = new User({ nome, sobrenome, email, senha: senhaHash });
         const usuarioSalvo = await novoUsuario.save();
         db.usuarios.createIndex({ email: 1 }, { unique: true })
         return res.status(201).json(usuarioSalvo);
@@ -35,8 +39,8 @@ exports.getUserById = async (req, res) => {
 exports.updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nome, sobrenome, email } = req.body;
-        const usuarioAtualizado = await User.findByIdAndUpdate(id, { nome, sobrenome, email }, { new: true });
+        const { nome, sobrenome, email, senha } = req.body;
+        const usuarioAtualizado = await User.findByIdAndUpdate(id, { nome, sobrenome, email, senha }, { new: true });
         if (!usuarioAtualizado) {
             return res.status(404).json({ message: 'Usuário não encontrado' });
         }
